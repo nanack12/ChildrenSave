@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper">
+	<select id="selectCoordinate" resultType="kr.co.childrensave.dto.CoordinateDTO">
+		select id , lat , lon from map
+	</select>
+	
+	<select id="selectBadack" resultType="kr.co.childrensave.dto.CoordinateDTO">
+		select id as name, lon , lat , 'badack' as type
+		  from badack
+	</select>
+	
+	<select id="selectChild" resultType="kr.co.childrensave.dto.CoordinateDTO">
+		select cctvid as name , lat , lon , 'child' as type
+		from testdb
+	</select>
+	
+	<select id="selectAccident" resultType="kr.co.childrensave.dto.CoordinateDTO">
+		select accnum, acctype as type , accloc as name, acccase , accdeath, accjs, accgs, accbs, acclat as lat, acclon as lon, 'acc' as data from accident
+	</select>
+	
+	<select id="selectAllime" resultType="kr.co.childrensave.dto.CoordinateDTO">
+		select allimeid , year, school , address, lat, lon, 'allime' as type from allime
+	</select>
+	
+	<select id="indexSchool" resultType="kr.co.childrensave.dto.HomeDTO">
+		select id, lon , lat , 'badack' as type from badack
+	</select>
+	
+	<select id="getList" resultType="kr.co.childrensave.dto.BoardDTO">
+		<![CDATA[
+		select * from boardtable where bno > 0
+		]]>
+	</select>
+	
+		<select id="indexAccient" resultType="kr.co.childrensave.dto.HomeDTO">
+		select id, lon , lat , 'badack' as type
+		  from badack
+	</select>
+	
+	<insert id="insert">
+		insert into boardtable (bno, title, content writer) 
+		values (boardtable_seq.nextval, #{title}, #{content}, #{writer})
+	</insert>
+	
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="bno" order="BEFORE" resultType="long">
+			select boardtable_seq.nextval from dual
+		</selectKey>
+		
+		insert into boardtable (bno, title, content, writer)
+		values (#{bno}, #{title}, #{content}, #{writer})
+	</insert>
+</mapper>
+
+
+
+

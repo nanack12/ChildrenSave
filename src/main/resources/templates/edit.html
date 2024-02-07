@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>공지사항</title>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/bootstrap/css/header.css}" />
+    
+    <link rel="stylesheet" href="/bootstrap/css/css.css">
+</head>
+
+<body>
+<!-- header -->
+	<div class="header">
+		<th:block th:replace="fragments/header :: header"></th:block>
+	</div>
+	<div class="board_wrap">
+		<div class="board_title">
+			<strong>질문 게시판 </strong>
+			 <ul>
+                <li><img src="https://i.ibb.co/fqVWzWt/home.png" alt="home" border="0"></li>
+                <li> > 시민마당 > 질문 게시판 </li>
+            </ul>
+		</div>
+		<div class="board_write_wrap">
+			<div class="board_write">
+				<form action="/board/update" method="post" name="updateForm">
+					<div class="title">
+						<dl>
+							<dt>제목</dt>
+							<dd><input type="text" name="boardTitle" placeholder="제목을 입력하세요"
+									th:value="${boardUpdate.boardTitle}"></dd>
+						</dl>
+					</div>
+					<div class="info">
+						<dl>
+							<dt>작성자</dt>
+							<dd><input type="text" name="boardWriter" placeholder="작성자 입력"
+									th:value="${boardUpdate.boardWriter}" readonly></dd>
+						</dl>
+						<dl>
+							<dt>비밀번호</dt>
+							<dd><input type="password" id="boardPass" name="boardPass" placeholder="Enter password"
+									th:value="${boardUpdate.boardPass}"></dd>
+						</dl>
+					</div>
+					<div class="cont">
+						 <textarea name="boardContents" placeholder="Enter your changes"
+                            th:text="${boardUpdate.boardContents}"></textarea>
+					</div>
+
+					<!-- 글수정 섹션 -->
+					<input type="hidden" name="id" th:value="${boardUpdate.id}">
+					
+					<input type="hidden" name="boardHits" th:value="${boardUpdate.boardHits}">
+					
+					<input type="button" value="수정" onclick="boardUpdate()" class="edit-button">
+					
+					<a th:href="@{/board/{id}(id=${boardUpdate.id})}" class="edit-button">취소</a>
+					
+					<!-- 글수정 섹션 끝 -->
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script th:inline="javascript">
+    const boardUpdate = () => {
+        const pass = /*[[${boardUpdate.boardPass}]]*/ 'defaultPass';
+        const inputPass = document.getElementById("boardPass").value;
+        if (pass == inputPass) {
+            document.updateForm.submit();
+        } else {
+            alert("비밀번호가 일치하지 않습니다!");
+        }
+    }
+</script>
+</body>
+
+</html>

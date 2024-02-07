@@ -1,0 +1,724 @@
+@charset "utf-8";
+
+@import url("reset.css");
+
+/* 폰트 */
+@import url("http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css");
+
+@import url("http://fonts.googleapis.com/earlyaccess/notosanskr.css");
+
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
+
+
+* {
+	box-sizing: border-box;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+body {
+	font-family: '맑은 고딕', 'Malgun Gothic', 돋움, Dotum, 'Apple SD Gothic Neo',
+		sans-serif;
+	color: #333;
+	font-size: 12px;
+}
+
+form * {
+	font: inherit;
+	color: inherit;
+}
+
+label, button {
+	cursor: pointer;
+}
+
+button {
+	border: 0 none;
+}
+
+input[type="text"]:focus {
+	outline: 0 none;
+}
+
+.blind {
+	position: absolute;
+	top: 0px;
+	left: -10000px;
+	font-size: 0;
+	line-height: 0;
+}
+
+.clear-fix::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+/* header  */
+.header {
+	background-color: #fff;
+	width: 100%;
+	height: 138px;
+	border-bottom: 1px solid #ccc;
+	padding: 20px;
+	position: relative;
+	top: 0;
+	z-index: 9000;
+}
+
+.header::after {
+	content: "";
+	background: url("../images/header/bg_sky.png") no-repeat 0 0;
+	margin: 0 auto;
+	width: 1240px;
+	height: 6px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+}
+
+/* 헤더 탑- 검색창, 로그인 회원가입창. */
+.header-top {
+	position: absolute;
+	right: 0;
+	top: 0;
+	padding: 17px 24px 23px 0;
+	font-size: 13px;
+	letter-spacing: -0.6px;
+}
+
+.header-top .logo {
+	/*데스크탑화면에서는 로고가 header-top 이 아닌 bottom 의 네비바들과 함께 나옵니다.*/
+	display: none;
+}
+
+/* 로그인, 회원가입 */
+.utill {
+	padding-left: 20px;
+	padding-top: 8px;
+	margin-right: 80px;
+	font-size: 15px;
+}
+
+.utill li {
+	display: inline-block;
+	margin-left: 18px;
+	padding-left: 18px;
+	position: relative;
+	vertical-align: middle;
+}
+
+.utill li::before {
+	content: "";
+	background: #ccc;
+	position: absolute;
+	width: 1px;
+	height: 14px;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.utill li:first-of-type {
+	margin-left: 0;
+	padding-left: 0;
+}
+
+.utill li:first-of-type::before {
+	display: none;
+}
+
+/* header-bottom : 로고와 네비게이션 바 */
+.header-bottom {
+	position: relative;
+	margin-top: 40px;
+	margin-left: 80px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.logo {
+	margin-left: 0px;
+	align-items: center;
+	justify-content: flex-start;
+	width: 300px;
+	height: 50px;
+}
+
+.logo img {
+	max-width: 100%;
+	max-height: 100%;
+	display: block;
+}
+
+/*상단 네비게이션 바 스타일 */
+.navigation {
+	position: relative;
+	justify-content: flex-end;
+	top: 0px;
+	padding-left: 20px;
+	margin-right: 37px;
+}
+
+.main-menu {
+	position: relative;
+	text-align: right;
+	font-size: 0;
+	right: 0;
+}
+
+.main-menu>li {
+	font-size: 12px;
+	width: 130px;
+	height: 55px;
+	display: inline-block;
+	text-align: center;
+	position: relative;
+	margin-top: 5px;
+}
+
+.main-menu a:hover {
+	color: #FF8F00;
+}
+
+.menu-title {
+	font: 20px 'Noto Sans KR', sans-serif;
+	font-weight: 500;
+}
+
+.dropdown {
+	overflow: visible;
+	display: inline-block;
+}
+
+.dropdown .dropbtn {
+	font: 20px 'Noto Sans KR', sans-serif;
+	font-weight: 500;
+	border: none;
+	outline: none;
+	color: black;
+	padding: 14px 16px;
+	background-color: inherit;
+	margin: 0;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.dropdown-content a {
+	font: 15px 'Noto Sans KR', sans-serif;
+	font-weight: 500;
+	float: none;
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	text-align: left;
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+.header.active {
+	position: relative;
+}
+
+.header.active .logo {
+	top: 20px;
+}
+
+.header.active .header-top {
+	display: none;
+}
+
+.header.active::after, .header.active::before {
+	top: 115px;
+}
+
+/* header 의 끝 */
+
+/* 여기서부터 메인 요소 */
+/* 메인, 교통정보 공통 요*/
+.mainContainer {
+	display: flex;
+	flex-wrap: wrap; /* 요소들이 화면에 맞춰 줄바꿈될 수 있도록 함 */
+	flex-direction: row; /* 자식 요소들을 수직으로 쌓음 */
+	justify-content: space-between; /* 헤더, 콘텐츠, 푸터 사이에 공간을 둠 */
+	align-items: strerch;
+	margin-right: 100px;
+	margin-left: 100px;
+}
+
+.mapContainer {
+	flex-grow: 1; /* 나머지 공간을 차지하도록 설정 */
+	display: flex;
+}
+
+#map {
+	flex-grow: 1;
+	height: 750px;
+	position: relative !important;
+	overflow: hidden;
+	background: url(http://t1.daumcdn.net/mapjsapi/images/2x/bg_tile.png);
+}
+
+/*메인 페이지 */
+.alarmImg {
+	display: none;
+}
+/*교통 정보 페이지 */
+/*왼쪽 사이드바 */
+.sidebarContainer {
+	position: relative;
+	width: 250px;
+	height: 750px;
+	background-color: #f0f0f0;
+}
+
+#sidebar {
+	position: static;
+	width: 250px;
+	top: 5;
+	background: #f0f0f0;
+	transition: left 0.3s;
+	z-index: 1000;
+	padding: 10px 10px;
+	/* 사이드바 하단에 여백 추가 */
+	margin-bottom: 20px; /* 필요에 따라 조정 */
+}
+
+#sidebarImg {
+	background-image: url('https://i.ibb.co/pw0mwW3/IMG-8060.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 140px;
+	width: 100%;
+	margin-top: 530px;
+}
+
+element.style {
+	width: 100%;
+	height: 750px;
+	position: fixed !important;
+	overflow: hidden;
+	background: url(http://t1.daumcdn.net/mapjsapi/images/2x/bg_tile.png);
+}
+
+.panel {
+	width: 222px;
+}
+
+.panel panel-default {
+	width: 225px;
+}
+
+.panel-heading {
+	width: 220px;
+	height: 70px;
+	font-size: 25px;
+	padding-top: 17px;
+	font-family: Jua;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+list-group {
+	width: 220px;
+}
+
+.ol, .safe, .traffic, .cb , .scloc {
+	position: static;
+	width: 219px;
+	height: 65px;
+	font-size: 20px;
+	font-family: poor story;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0px 13px;
+}
+
+.col-sm-offset-3 {
+	margin-left: -10px;
+	width: 250px;
+}
+
+.material-switch {
+	position: relative;
+	float: flex;
+	clear: both;
+	width: 50px;
+	padding-bottom: 20px;
+	margin-right: 5px;
+}
+
+.material-switch>input[type="checkbox"] {
+	display: none;
+}
+
+.material-switch>label {
+	cursor: pointer;
+	height: 0px;
+	position: relative;
+	width: 50px;
+}
+
+.material-switch>label::before {
+	background: rgb(0, 0, 0);
+	box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+	border-radius: 8px;
+	content: '';
+	height: 25px;
+	margin-top: -8px;
+	position: absolute;
+	opacity: 0.3;
+	transition: all 0.4s ease-in-out;
+	width: 58px;
+}
+
+.material-switch>label::after {
+	background: rgb(255, 255, 255);
+	border-radius: 10px;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+	content: '';
+	height: 28px;
+	left: -4px;
+	margin-top: -7px;
+	position: absolute;
+	top: -3px;
+	transition: all 0.3s ease-in-out;
+	width: 28px;
+}
+
+.material-switch>input[type="checkbox"]:checked+label::before {
+	background-color: #f0ad4e;
+	opacity: 0.5;
+	width: 58px;
+}
+
+.material-switch>input[type="checkbox"]:checked+label::after {
+	background: rgb(255, 255, 255);
+	left: calc(58px - 28px + 4px);
+}
+
+/*오버레이 */
+.over-wrap {
+	position: absolute;
+	left: 0px;
+	bottom: 40px;
+	width: 250px;
+	height: 132px;
+	margin-left: -124px;
+	text-align: left;
+	overflow: hidden;
+	font-size: 12px;
+	font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
+	line-height: 2;
+}
+
+.over-wrap * {
+	padding: 0;
+	margin: 0;
+}
+
+.over-wrap .over-info {
+	width: 250px;
+	height: 120px;
+	border-radius: 8px;
+	border-bottom: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	overflow: hidden;
+	background: #fff;
+}
+
+.over-wrap .over-info:nth-child(1) {
+	border: 2px;
+	box-shadow: 1px 1px 2px #888;
+}
+
+.over-info .over-title {
+	padding: 5px 0 0 10px;
+	height: 40px;
+	background: #eee;
+	border-bottom: 1px solid #ddd;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.over-info .over-close {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	color: #888;
+	width: 17px;
+	height: 17px;
+	background:
+		url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+}
+
+.over-info .over-close:hover {
+	cursor: pointer;
+}
+
+.over-info .over-body {
+	position: relative;
+	overflow: hidden;
+}
+
+.over-desc .over-address {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: normal;
+	margin-top: 13px;
+	margin-right: 10px;
+	margin-left: 10px;
+	margin-bottom: 3px;
+	font-size: 15px;
+	line-height: 1;
+}
+.over-address-ch{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: normal;
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-left: 10px;
+	margin-bottom: 3px;
+	font-size: 13px;
+	line-height: 1;
+}
+.kind-school{
+	margin-left:10px;
+}
+.over-desc .meter, .cctv, .limit {
+    font-size: 10px;
+    color: #888;
+    margin-left: 10px;
+    line-height: 11px;
+}
+
+.over-total{
+    font-size: 13px;
+    color: black;
+    margin-left: 10px;
+    line-height: 15px;
+}
+.over-acc{
+    font-size: 13px;
+    color: #888;
+    margin-left: 10px;
+    line-height: 15px;
+}
+.over-info:after {
+	content: '';
+	position: absolute;
+	margin-left: -20px;
+	left: 50%;
+	bottom: 0;
+	width: 22px;
+	height: 12px;
+	background:
+		url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
+}
+
+.over-info .over-link {
+	color: #5085BB;
+}
+
+/* 푸터 */
+footer.bg-light {
+	border-top: 1px solid #ccc;
+	background-color: #f8f9fa;
+	color: white;
+	padding-top: 10px;
+}
+
+/* 푸터 내 컨테이너 스타일 */
+footer .container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	max-width: 1140px;
+	margin: auto;
+	padding-top: 20px;
+	padding-bottom: 30px;
+}
+
+/* 소셜 미디어 버튼 스타일 */
+footer .btn-floating {
+	border: none;
+	border-radius: 50%;
+	display: inline-block;
+	width: 36px;
+	height: 36px;
+	line-height: 36px;
+	margin: 1px;
+	color: white;
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.06), 0 3px 1px -2px
+		rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* 저작권 섹션 스타일 */
+footer .text-center.p-3 {
+	background-color: rgba(0, 0, 0, 0.2);
+	padding: 10px;
+	font: Noto Sans KR;
+	position: relative;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	color: black;
+}
+
+/* 링크 스타일 */
+footer a.text-white {
+	color: black;
+	text-decoration: none;
+}
+
+/*반응형 디자인 - 메인화면 모바일로 볼때  */
+@media screen and (max-width: 844px) {
+	body, html {
+		overflow: hidden;
+	}
+	.header {
+		width: 400px;
+		height: 130px;
+	}
+	.header-top {
+		display: flex;
+		position: relative;
+		padding: 10px 0px;
+		margin-right: 0px;
+		margin-left: 5px;
+		width: 350px;
+	}
+	.header-top .logo {
+		display: flex;
+		width: 150px;
+		height: 50px;
+		justify-content: flex-start;
+	}
+	.header-top .search {
+		display: none;
+	}
+	.utill {
+		display: flex;
+		width: 240px;
+		padding: 10px 0px;
+		margin-right: 0px;
+		margin-left: 100px;
+		align-items: center;
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+	.header-bottom {
+		display: flex;
+		margin-top: 0px;
+		margin-left: 0px;
+		margin-bottom: 5px;
+		margin-right: 0px;
+		width: 350px;
+		height: 30px;
+		align-items: flex-start;
+		justify-content: space-evenly;
+		align-items: flex-start;
+	}
+	.header-bottom .logo {
+		display: none;
+	}
+	.navigation {
+		margin-left: 0px;
+		margin-right: 0px;
+		margin-bottom: 0px;
+		padding-left: 0px;
+		display: flex;
+		width: 350px;
+		justify-content: space-between;
+	}
+	.menu-title {
+		font: 15px 'Noto Sans KR', sans-serif;
+		font-weight: 500;
+		margin: 0px 5px;
+	}
+	.dropdown .dropbtn {
+		font: 15px 'Noto Sans KR', sans-serif;
+		font-weight: 500;
+		padding: 0px 0px;
+	}
+	.dropdown-content {
+		min-width: 115px;
+		margin-left: -23px;
+	}
+	.dropdown-content a {
+		font-size: 13px;
+		padding: 10px 12px;
+	}
+	.main-menu {
+		display: flex;
+		width: 350px;
+		height: 30px;
+		text-align: center;
+		justify-content: space-between;
+	}
+	.main-menu>li {
+		height: 10px;
+		width: 70px;
+		margin-top: 0px;
+	}
+	.main-menu a:active {
+		color: #FF8F00;
+	}
+	.dropdown a:active {
+		color: #FF8F00;
+	}
+	.mainContainer {
+		margin-right: 0px;
+		margin-left: 0px;
+		min-height: 430px;
+	}
+	.mapContainer {
+		display: flex;
+	}
+	#map {
+		flex: 1 1 100%;
+		max-width: 100%;
+		min-height: 430px;
+		
+	}
+	.alarmImg {
+    display: flex;
+    width: 150px;
+    height: 200px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 50px;
+    right: 145px;
+    z-index: 9000;
+	}
+	footer.bg-light {
+		border-top: 1px solid #ccc;
+		background-color: #f8f9fa;
+		color: white;
+		padding-top: 30px;
+	}
+	footer .btn-floating {
+		display: none;
+	}
+}

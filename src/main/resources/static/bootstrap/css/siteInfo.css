@@ -1,0 +1,162 @@
+@import url("http://fonts.googleapis.com/earlyaccess/notosanskr.css");
+@import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
+
+/*전반적인 스타일 지정.*/
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+html {
+    font-size: 10px; /*기준이 될 디폴트 폰트 크기*/
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+.siteInfo_wrap {
+    width: 1000px;
+    margin: 100px auto;
+    padding: 0 30px;
+}
+
+.siteInfo_title,
+.siteInfo_subtitle,
+.siteInfo_row
+ {
+    padding: 30px;
+    text-align: center;
+}
+
+/*=============사이트 이용 방법 < 타이틀 css===================================*/
+.siteInfo_title {
+    margin-bottom: 30px;
+    text-align: center;
+}
+.siteInfo_title strong{
+    font-weight: 700;
+    font-size: 4rem;
+}
+.siteInfo_title ul{
+    padding: 0;
+    text-align: center;
+}
+.siteInfo_title ul li{
+   font-family: 'Noto Sans KR', sans-serif;
+    display: inline-block;
+    color: #888;
+    margin-top: 20px;
+    margin-right: 8px;
+    margin-bottom: 40px;
+    font-size: 15px;
+}
+.siteInfo_title ul li img{
+    vertical-align: middle;
+    width:19px;
+}
+/*=============safe~ 슬로건 < 서브타이틀 css===================================*/
+.siteInfo_subtitle b {
+    font-size: 5rem;
+    color: dimgrey;
+    font-family:'Poor Story', system-ui;
+    position: relative;
+    z-index: 2; /*z-index를 이미지보다 높게 줌.(이미지보다 더 높은 레이어 가지게 됨)*/
+}
+.siteInfo_subtitle img{ /* :) 아이콘 */
+    position: absolute;
+    top: 480px; 
+    left: 950px; /* 이 position, top, left 속성이 중요! 이걸로 위치 잡으면 됨.*/
+    height: 50px;
+    width: 80px;
+    z-index: 1;
+}
+hr{ /*구분선이에용*/
+    margin: 20px;
+}
+
+/*=============본문 css===================================================*/
+.siteInfo_row { /* 레이아웃을 열로(row)로 지정*/
+    display: flex; /* 레이아웃을 flex box 로 지정.*/
+    margin-bottom: 20px;
+}
+.siteInfo_column{ /*하나의 열에 있는 칼럼들에 대한 전체 속성.*/
+    padding: 5px;
+    flex: 1; /*부모요소(siteInfo_row) 의 전체를 차지하도록 지정.*/
+    margin: 5px;
+    height: 300px;
+    text-align: left;
+    position: relative;
+}
+.siteInfo_column img { /*사이트 이미지.*/
+    max-width: 100%;
+    max-height: 100%;
+}
+.checkmark{ /*체크 이미지*/
+    height: 50px;
+    width: 70px;
+    vertical-align: middle; 
+    margin-right: 10px;
+}
+.siteInfo_column b{ /* 칼럼의 타이틀 (안전구역 확인하기) */
+   vertical-align: middle;
+   font-size: 3.5rem;
+   font-family:'Poor Story', system-ui;
+}
+.siteInfo_column p{ /*칼럼 내용*/
+    margin-top: 30px;
+    font-size: 2rem; 
+     font-family: 'Noto Sans KR', sans-serif;
+}
+.link_text_right{ /*페이지 바로가기가 오른쪽에 있을때*/
+    position: absolute;
+    left: 200px;
+    bottom: 30px; /* 이 position, left, bottom 속성이 중요! 이걸로 위치 잡으면 됨.*/
+    font-size: 2.5rem;
+    font-family:'Poor Story', system-ui;
+}
+.link_text_left{/*페이지 바로가기가 왼쪽에 있을때*/
+    position: absolute;
+    left: 90px;
+    bottom: 30px; /*마찬가지*/
+    font-size: 2.5rem;
+    font-family:'Poor Story', system-ui;
+}
+#rightArrow{ /*오른쪽 방향 버튼*/
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+    border-radius: 50%;
+    height: 70px;
+    width: 70px;
+    border: none;
+    cursor: pointer;
+}
+#leftArrow{ /*왼쪽 방향 버튼*/
+    position: absolute;
+    left: 0;
+    bottom: 10px;
+    border-radius: 50%;
+    height: 70px;
+    width: 70px;
+    border: none;
+    cursor: pointer;
+}
+ #toIndex img{ /*버튼 이미지*/
+    max-width: 100%;
+    max-height: 100%;
+    vertical-align: center;
+}
+
+
+.Col4_Image{
+    min-width: 100%;
+   margin-bottom: 30px;
+}
+#col4{
+    height: 500px;
+}
+#link_text_col4{
+    left: 630px;
+    margin-top: 50px;
+}

@@ -1,0 +1,603 @@
+@charset "utf-8";
+
+/* 폰트 */
+@import url("http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css")
+	;
+
+@import url("http://fonts.googleapis.com/earlyaccess/notosanskr.css");
+
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap')
+	;
+
+@import
+	url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap')
+	;
+
+@import
+	url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap')
+	;
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 10px;
+}
+
+ul, li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.board_wrap {
+	width: 1000px;
+	margin: 100px auto;
+	padding: 0 40px;
+}
+
+.board_title {
+	margin-bottom: 30px;
+	text-align: center;
+	line-height: 30px;
+}
+
+.board_title strong {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 700;
+	font-size: 4rem;
+}
+
+.board_title ul {
+	padding: 0;
+	text-align: center;
+}
+
+.board_title ul li {
+	font-family: 'Noto Sans KR', sans-serif;
+	display: inline-block;
+	color: #888;
+	margin-top: 20px;
+	margin-right: 8px;
+	margin-bottom: 40px;
+	font-size: 15px;
+}
+.board_title p{
+	font-size: 15px;
+	margin-top: 20px;
+}
+.board_title ul li img {
+	vertical-align: middle;
+	width: 19px;
+}
+
+.bt_wrap {
+	margin-top: 70px;
+	text-align: center;
+	font-size: 0;
+}
+
+.bt_wrap a {
+	display: inline-block;
+	text-decoration: none !important;
+}
+
+.bt_wrap a:first-child {
+	margin-left: 0;
+}
+
+.bt_wrap a.on {
+	font-size: 1.7rem;
+	line-height:23px;
+	background-color: #f0ad4e;
+	font-weight: 800;
+	color: white;
+    height: 40px;
+    min-width: 130px;
+    margin-left: 0px;
+    margin-right : 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    
+}
+#writeBt:hover{
+	background-color: white;
+	border: 1px solid #f0ad4e;
+	color: #f0ad4e;
+}
+/* 글 등록/취소 스타일 시작*/
+
+#contentText{
+	font-size: 1.3rem;
+}
+#submitBt {
+	font-size: 1.5rem;
+	background-color: #f0ad4e;
+	color: white;
+    height: 100%;
+    min-width: 100px;
+    margin-left: 0px;
+    margin-right : 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+#submitBt:hover {
+	background-color: white;
+	border: 1px solid #f0ad4e;
+	color: #f0ad4e;
+}
+
+.custom-cancel {
+	font-size: 1.5rem;
+	background-color: white;
+	color: #f0ad4e;
+    height: 100%;
+    min-width: 100px;
+    margin-left: 0px;
+    margin-right : 10px;
+    padding: 10px;
+    border: 1px solid #f0ad4e;
+    border-radius: 5px;
+}
+
+.custom-cancel:hover {
+	background-color:#f0ad4e;
+	color:white;
+}
+
+/* 글 등록/취소 스타일 끝 */
+
+/* view.html의 버튼 시작 */
+#list, #delete{
+	font-size: 1.5rem;
+	background-color: #f0ad4e;
+	color: white;
+    height: 100%;
+    min-width: 100px;
+    margin-left: 0px;
+    margin-right : 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+#edit{
+	font-size: 1.5rem;
+	background-color: white;
+	color: #f0ad4e;
+    height: 100%;
+    min-width: 100px;
+    margin-left: 0px;
+    margin-right : 10px;
+    padding: 10px;
+    border: 1px solid #f0ad4e;
+    border-radius: 5px;
+}
+
+#list:hover{
+	background-color: white;
+	border: 1px solid #f0ad4e;
+	color: #f0ad4e;
+}
+#edit:hover{
+	background-color:#f0ad4e;
+	color:white;
+}
+#delete:hover{
+	background-color: white;
+	border: 1px solid #f0ad4e;
+	color: #f0ad4e;
+}
+/* view.html의 버튼 끝 */
+
+.board_list {
+	width: 100%;
+	border-top: 1px solid #000;
+}
+
+.board_list>div {
+	border-bottom: 1px solid #ddd;
+	font-size: 0;
+}
+
+.board_list>div.top {
+	border-bottom: 1px solid #999;
+}
+
+.board_list>div:last-child {
+	border-bottom: 1px solid #000;
+}
+
+.board_list>div>div {
+	display: inline-block;
+	padding: 15px 0;
+	text-align: center;
+	font-size: 1.4rem;
+}
+
+.board_list>div.top>div {
+	font-weight: 600;
+}
+
+.board_list .num {
+	width: 10%;
+}
+
+.board_list .title {
+	width: 60%;
+	text-align: left;
+}
+.board_list .top{
+	background-color: #e4e4e5;
+}
+.board_list .top .title {
+	text-align: center;
+}
+
+.board_list .writer {
+	width: 10%;
+}
+
+.board_list .date {
+	width: 10%;
+}
+
+.board_list .count {
+	width: 10%;
+}
+
+.board_page {
+	margin-top: 50px;
+	text-align: center;
+	font-size: 0;
+}
+
+.board_page a {
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	box-sizing: border-box;
+	vertical-align: middle;
+	border: 1px solid #ddd;
+	border-left: 0;
+	line-height: 100%;
+}
+
+.board_page a.bt {
+	padding-top: 10px;
+	font-size: 1.2rem;
+	letter-spacing: -1px;
+	
+}
+
+.board_page a.num {
+	padding-top: 9px;
+	font-size: 1.4rem;
+	
+}
+
+.board_page a.num.on {
+	border-color: none;
+	background-color: #e4e4e5;
+	color: black;
+}
+
+.board_page a:first-child {
+	border-left: 1px solid #ddd;
+}
+
+.board_view {
+	width: 100%;
+	border-top: 2px solid #000;
+}
+
+.board_view .title {
+	padding: 20px 15px;
+	border-bottom: 1px dashed #ddd;
+	font-size: 2rem;
+}
+
+.board_view .info {
+	padding: 15px;
+	border-bottom: 1px solid #999;
+	font-size: 0;
+}
+
+.board_view .info dl {
+	position: relative;
+	display: inline-block;
+	padding: 0 20px;
+}
+
+.board_view .info dl:first-child {
+	padding-left: 0;
+}
+
+.board_view .info dl::before {
+	content: "";
+	position: absolute;
+	top: 1px;
+	left: 0;
+	display: block;
+	width: 1px;
+	height: 13px;
+	background: #ddd;
+}
+
+.board_view .info dl:first-child::before {
+	display: none;
+}
+
+.board_view .info dl dt, .board_view .info dl dd {
+	display: inline-block;
+	font-size: 1.4rem;
+}
+
+
+.board_view .info dl dd {
+	margin-left: 10px;
+	color: #777;
+}
+
+.board_view .cont {
+	padding: 15px;
+	border-bottom: 1px solid #000;
+	line-height: 160%;
+	font-size: 1.4rem;
+	min-height: 300px;
+}
+
+.board_write {
+	border-top: 2px solid #000;
+}
+
+.board_write .title, .board_write .info {
+	padding: 15px;
+}
+
+.board_write .info {
+	border-top: 1px dashed #ddd;
+	border-bottom: 1px solid #000;
+	font-size: 0;
+}
+
+.board_write .title dl {
+	font-size: 0;
+}
+
+.board_write .info dl {
+	display: inline-block;
+	width: 50%;
+	vertical-align: middle;
+}
+
+.board_write .title dt, .board_write .title dd, .board_write .info dt,
+	.board_write .info dd {
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 1.4rem;
+}
+
+.board_write .title dt, .board_write .info dt {
+	width: 100px;
+}
+
+.board_write .title dd {
+	width: calc(100% - 100px);
+}
+
+.board_write .title input[type="text"], .board_write .info input[type="text"],
+	.board_write .info input[type="password"] {
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+.board_write .title input[type="text"] {
+	width: 80%;
+}
+
+.board_write .cont {
+	border-bottom: 1px solid #000;
+}
+
+.board_write .cont textarea {
+	display: block;
+	width: 100%;
+	height: 300px;
+	padding: 15px;
+	box-sizing: border-box;
+	border: 0;
+	resize: vertical;
+}
+
+.comment_wrap {
+	margin-top: 50px;
+	width: 100%;
+	height: 500px;
+}
+
+.input-button-container {
+	position: relative;
+	height: 100%;
+}
+
+.input-button-container {
+	position: relative;
+}
+
+.form-control {
+	padding-right: 100px;
+	height: 80px;
+}
+
+.btn-outline-primary {
+	/*position: absolute;*/
+	bottom: 0;
+	right: 0;
+	height: 30px;
+	font-size: 14px !important;
+	--bs-btn-border-color: none !important;
+}
+
+.table {
+	margin-top: 30px;
+}
+
+.table th {
+	font-size: 1.4rem !important;
+}
+
+.table-secondary th {
+	min-width: 58.44px;
+}
+
+.table-secondary td:nth-child(2) {
+	min-width: 58.44px;
+}
+
+.table-secondary td:nth-child(3) {
+	min-width: 465.88px;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+
+.table-secondary td:nth-child(4) {
+	min-width: 118.35px;
+}
+
+/*========================================================================*/
+/* 댓글 작성 부분 스타일 */
+#comment-write {
+	margin-top: 80px;
+	display: flex;
+	justify-content: space-between;
+}
+
+#comment-write input[type="text"] {
+	padding: 10px;
+	margin-right: 10px;
+	width: 150px; /* 작성자 필드 너비 */
+	height: 45px;
+	border: 1px solid #ccc; /* 기존 스타일과 일관된 테두리 스타일 */
+	border-radius: 3px; /* 기존 스타일과 일관된 테두리 굴곡 */
+}
+
+#comment-write input[type="text"]#commentContents {
+	width: 650px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	/* Border curvature consistent with existing style */
+}
+
+#comment-write button {
+	font-size: 1.4rem;
+	font-weight: 700;
+	background-color: #f3f3f3;
+	color: black;
+	padding: 10px 15px;
+	width: 90px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+#comment-write button:hover {
+	background-color: #ccc;
+}
+
+/* 댓글 출력 섹션 스타일 */
+#comment-list {
+	margin-top: 20px; /* 댓글 섹션 상단 여백 */
+}
+
+#comment-list table {
+	width: 100%; /* 테이블 전체 너비 사용 */
+	border-collapse: collapse; /* 테이블 셀 경계 병합 */
+	margin-top: 30px; /* 테이블 상단 여백 */
+}
+
+#comment-list th, #comment-list td {
+	border: 1px solid #ddd; /* 셀 테두리 스타일 */
+	padding: 10px; /* 셀 안 여백 */
+	text-align: center; /* 텍스트 왼쪽 정렬 */
+}
+
+#comment-list th {
+	background-color: #d2d2d2; /* 기존 스타일과 일관된 어두운 배경색 */
+	color: black; /* 텍스트 색상 */
+	font-weight: 700;
+}
+
+#comment-list tr:nth-child(even) {
+	background-color: #f2f2f2; /* 짝수 행 배경색 */
+}
+
+#comment-list tr:hover {
+	background-color: #ddd; /* 마우스 호버 시 배경색 변경 */
+}
+
+/* 버튼 스타일 */
+#comment-list button {
+	background-color: #333333; /* 버튼 배경색 */
+	color: white; /* 버튼 텍스트 색상 */
+	padding: 10px 15px; /* 버튼 안 여백 조절 */
+	border: none; /* 테두리 없음 */
+	border-radius: 3px; /* 테두리 굴곡 */
+	cursor: pointer; /* 커서 포인터로 변경 */
+}
+
+#comment-list button:hover {
+	background-color: dimgray; /* 마우스 호버 시 배경색 변경 */
+}
+
+#comment-list th, #comment-list td {
+	font-size: 1.4rem; /* Font size consistent with existing style */
+}
+
+/* 수정버튼 */
+input.edit-button {
+	margin-top: 70px;
+	font-size: 1.5rem;
+	background-color: #f0ad4e;
+	color: white;
+    height: 100%;
+    width: 100px;
+    margin-left: 350px;
+    margin-right : 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+input.edit-button:hover {
+	background-color: white;
+	border: 1px solid #f0ad4e;
+	color: #f0ad4e;
+}
+
+a.edit-button{
+	display:inline-block;
+	text-align: center;
+	font-size: 1.5rem;
+	background-color: white;
+	color: #f0ad4e;
+    height: 100%;
+    width: 100px;
+    margin-left: 0px;
+    margin-right : 10px;
+    padding: 10px;
+    border: 1px solid #f0ad4e;
+    border-radius: 5px;
+}
+a.edit-button:hover{
+	background-color:#f0ad4e;
+	color:white;
+}

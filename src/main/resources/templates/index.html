@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+</style>
+
+<title>강서구 어린이 교통 안전</title>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-migrate-3.3.2.min.js"></script>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+
+
+<!-- slick js -->
+<script
+	src="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- slick css -->
+<link rel="stylesheet"
+	href="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+
+<!-- My css -->
+<link rel="stylesheet" href="./bootstrap/css/style.css">
+<style>
+</style>
+</head>
+
+<body>
+	<!-- header -->
+	<div class="header">
+		<th:block th:replace="fragments/header :: header"></th:block>
+	</div>
+
+	<!-- main -->
+	<div class="mainContainer">
+		<div class="mapContainer">
+			<div id="map"></div>
+		</div>
+		<div class="alarmImg" onclick="document.location.href='tel:112'">
+
+			<img src="https://i.ibb.co/gFQF2yx/indexala.png">
+
+		</div>
+	</div>
+
+
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8b40564ca5feb95d3fb2ab2a184abdf6"></script>
+
+	<script src="/bootstrap/js/data.js"></script>
+	<script src="/bootstrap/js/schooldata.js"></script>
+
+	<script>
+    
+        var mapContainer = document.getElementById('map');
+        var mapOption = {
+            center: new kakao.maps.LatLng(37.53940221, 126.8389486),
+            level: 2
+        };
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+        
+        function mediaSet() {
+			map.relayout();
+		}
+		
+		function resizeMap() {
+			var mapContainer = document.getElementById('map');
+			mapContainer.style.width = '390px';
+			mapContainer.style.height = '100%';
+		}
+  
+         document.addEventListener("DOMContentLoaded", function(){  
+            if (window.matchMedia("(max-width: 844px)").matches) {
+                resizeMap();
+                mediaSet();
+            }
+        });
+
+
+		
+//==================================================0. 마커 이미지 ================================================== 
+        var schoolImgLink = "https://i.ibb.co/yR2P6HT/school.png", schoolImgSize = new kakao.maps.Size(
+            50, 65);
+        schoolImgOption = {
+            offset: new kakao.maps.Point(27, 69)
+        };
+        var schoolMarkerImg = new kakao.maps.MarkerImage(schoolImgLink,
+            schoolImgSize);
+        
+        
+     
+//==================================================1.학교 마커================================================== 
+        function schoolMarker(data) {
+            for (i = 0; i < data.length; i++) {
+                var coor = data2[i];
+                var lat = coor.lat;
+                var lon = coor.lon;
+                var markerPosition = new kakao.maps.LatLng(lat, lon);
+
+                var marker = new kakao.maps.Marker({
+                    position: markerPosition,
+                    image: schoolMarkerImg
+                });
+
+                marker.setMap(map);
+            }
+        }//end func schoolmarker
+
+//==================================================2.어린이 보호구역 ==================================================
+
+        function transformPolygon(polygon) {
+            var coords = polygon.slice(1, -1).split(',');
+            var lats = [], lons = [];
+            coords.forEach(function (coord) {
+                var parts = coord.trim().split(' ');
+                lons.push(parseFloat(parts[0]));
+                lats.push(parseFloat(parts[1]));
+            });
+            return { lat: lats, lon: lons };
+
+        }
+
+
+        var Data = data.map(function (item) {
+            var prettyPolygon = transformPolygon(item.polygon);
+            return { ...item, polygon: prettyPolygon };
+        });
+
+
+        function makingMap(Data) {
+            for (var i = 0; i < Data.length; i++) {
+                var polygonPath = []; //카카오 객체담기로 담을 polygonPath 리스트 선언.
+                var polygonData = Data[i]; // 현재 데이터 저장
+                var coords = polygonData.polygon; //데이터에서 polygon 만 뽑아오기 
+
+
+                for (var j = 0; j < coords.lat.length; j++) {
+                    polygonPath.push(new kakao.maps.LatLng(coords.lat[j], coords.lon[j]));
+                }
+
+
+                var polygon = new kakao.maps.Polygon({
+                    map: map,
+                    path: polygonPath,
+                    strokeColor: '#66bb6a',
+                    fillColor: '#66bb6a',
+                    fillOpacity: 0.7,
+                    strokeWeight: 2
+                });
+
+                (function (polygon, data) {
+                    kakao.maps.event.addListener(polygon, 'click', function (mouseEvent) {
+                        var content = '<div class="info">' +
+                            '   <div class="title">해당 학교 이름: ' + data.school + '</div>';
+
+
+                        infowindow.setContent(content);
+                        infowindow.setPosition(mouseEvent.latLng);
+                        infowindow.setMap(map);
+                    });
+                })(polygon, polygonData);
+            }
+        }
+//==================================================3.서버데이터 (바닥, 사고 ) ==================================================
+		
+		var positions = [];
+		var marker1 = [];							
+		var markers1 = [];
+		function SchoolData(list1) {
+			var overlaies1 = [];
+			
+			$.ajax({
+				type: 'GET',
+				url: '/school.do',
+				data: {
+					dataType: list1
+				},
+				success: function (result) {
+					console.log(list1);
+					console.log(result);
+
+
+					for (var i = 0; i < result.length; i++) {
+
+						var obj = new Object;
+						obj = {
+							title: result[i].id,
+							latlng: new kakao.maps.LatLng(result[i].lat, result[i].lon),
+							type: result[i].type
+						}
+							
+						positions.push(obj);
+						
+
+					}
+
+				}, complete: function () {	
+					
+					for(var i = 0; i < positions.length; i++){
+
+						var imageSrc1 = "https://i.ibb.co/qNJtH71/floor.png"
+						var imageSize1 = new kakao.maps.Size(50, 65);
+						var imageOption1 = {offset: new kakao.maps.Point(27, 69)};
+						var markerImage1 = new kakao.maps.MarkerImage(imageSrc1, imageSize1, imageOption1);    
+						marker1 = new kakao.maps.Marker({
+							map: map,
+							position: positions[i].latlng,
+							image: markerImage1
+						});
+						
+						markers1.push(marker1);
+						//displayOverlay(marker, overlaies[i].title , overlaies[i].address);
+					}
+				}
+			})
+		}
+
+//==================================================5.함수호출  ==================================================
+
+
+        // 함수 호출 
+        schoolMarker(data2);
+        makingMap(Data);
+		$(function () {
+			SchoolData();
+		});
+		$(function () {
+			 BadackData();
+		});
+		
+      
+
+
+
+
+    </script>
+
+
+	<!-- footer -->
+	<div class=footer>
+		<th:block th:replace="fragments/footer :: footer"></th:block>
+	</div>
+</body>
+
+</html>

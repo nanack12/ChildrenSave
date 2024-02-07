@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 제이쿼리 불러오기 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--<link th:href="@{../css/boardinfo.css}" rel="stylesheet">-->
+    <link rel="stylesheet" href="/bootstrap/css/infoBoard.css">
+	<link rel="stylesheet" href="./bootstrap/css/style.css">
+    <title>게시판 테스트
+    </title>
+</head>
+
+<body>
+    <div class="header">
+		<th:block th:replace="fragments/header :: header"></th:block>
+	</div>
+
+    <section>
+    <form action="" class="bord">
+        
+        <div class="notice-section">
+            <h2>공지사항</h2>
+            <ul>
+				<li><img src="https://i.ibb.co/fqVWzWt/home.png" alt="home" border="0"></li>
+				
+				<li> 시민마당 > 공지사항</li>
+			</ul>
+            
+        </div>
+        	<ul>
+               
+                <li><select name="serch key" id="serch key">
+                        <option value="subject">제목</option>
+                        <option value="content">내용</option>
+                        <option value="writer_name">글쓴이</option>
+                        <option value="member_id">아이디</option>
+                    </select></li>
+                <input type="text" placeholder="검색어를 입력하세요.">
+                <button>검색</button>
+            </ul>
+            
+            <table class="bord-table">
+                <thead>
+                    <tr>
+                        <th scope="col" class="th-num">NO.</th>
+                        <th scope="col" class="th-title">제목</th>
+                        <th scope="col" class="th-name">글쓴이</th>
+                        <th scope="col" class="th-date">등록일</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2</td>
+                        <th>
+                            <a href="#!">[공지사항] 개인정보 처리방침 변경안내처리방침</a>
+                        <td>관리자</td>
+                        </th>
+                        <td>2017.07.13</td>
+                    </tr>
+
+                    <tr>
+                        <td>1</td>
+                        <th><a href="#!">홈페이지 사용방법</a></th>
+                        <td>관리자</td>
+                        <td>2017.06.15</td>
+                    </tr>
+                </tbody>
+            </table>
+			<ul class="pagination">
+				<li><span class="brackets">&lt;</span></li>
+        		<li><a href="#">1</a></li>        
+        		<li><a href="#">2</a></li>
+        		<li><a href="#">3</a></li>
+        		<li><span class="brackets">&gt;</span></li>
+    		</ul>
+            
+        </form>
+    </section>
+    		<div class=footer>
+		<th:block th:replace="fragments/footer :: footer"></th:block>
+	</div>
+    
+    
+</body>
+
+</html>

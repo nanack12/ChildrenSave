@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+
+
+<link rel="stylesheet" th:href="@{./bootstrap/css/header.css}" />
+
+</head>
+<body>
+	<header th:fragment="header">
+		<div class="wrap">
+
+
+			<div class="header-top">
+				<div class="logo">
+					<a href="/index"> <img src="https://i.ibb.co/NWg3gg0/2023-12-29-5-51-49.png">
+					</a>
+				</div>
+		
+				<ul class="utill">
+					
+				<li th:if="${role =='ROLE_ANONYMOUS'}">
+                  <a th:href="@{/login}">로그인</a>                  
+               </li>
+               <li th:if="${role !='ROLE_ANONYMOUS'}">
+                  <a th:href="@{/logout}">로그아웃</a>
+               </li>
+
+				<!--	<li><a href="/login">로그인</a></li>-->
+					
+					<li><a href="/mypage"> 마이페이지 </a></li>
+				</ul>
+			</div>
+
+			<div class="header-bottom">
+				<div class="logo">
+					<a href="/index"> <img src="https://i.ibb.co/NWg3gg0/2023-12-29-5-51-49.png">
+					</a>
+				</div>
+				<nav class="navigation">
+					<h2 class="blind"></h2>
+					<ul class="main-menu">
+						<li><a href="/test.do" class="menu-title">교통정보 </a></li>
+						<li><a href="https://csdata.streamlit.app/"
+							class="menu-title" target="_blank">빅데이터 </a></li>
+						<li class="dropdown">
+							<button class="dropbtn">
+								시민마당 <i class="fa fa-caret-down"></i>
+							</button>
+							<div class="dropdown-content">
+								<a href="/notice/list">공지사항 </a> <a href="/board/paging">질문 게시판 </a> <a
+									href="https://eminwon.gangseo.seoul.kr/emwp/gov/mogaha/ntis/web/emwp/cmmpotal/action/EmwpMainMgtAction.do"
+									target="_blank">시민의 소리 </a>
+							</div>
+						</li>
+						<li class="dropdown">
+
+							<button class="dropbtn">
+								소개 <i class="fa fa-caret-down"></i>
+							</button>
+							<div class="dropdown-content">
+								<a href="/teaminfo.do">팀 소개 </a> <a href="/siteinfo.do"> 사이트 이용 방법 </a>
+							</div>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</header>
+</body>

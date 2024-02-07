@@ -1,0 +1,114 @@
+<!--마이페이지. 상세정보/탈퇴/정보수정 연결-->
+<!DOCTYPE html>
+<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지사항</title>
+
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/bootstrap/css/header.css}" />
+    
+    <link rel="stylesheet" href="/bootstrap/css/css.css">
+
+</head>
+<body>
+		<!-- header -->
+		<div class="header">
+			<th:block th:replace="fragments/header :: header"></th:block>
+		</div>
+	    <div class="board_wrap">
+	        <div class="board_title">
+	            <strong>공지사항</strong>
+	               <ul>
+                <li><img src="https://i.ibb.co/fqVWzWt/home.png" alt="home" border="0"></li>
+                <li> > 시민마당 > 공지사항  </li>
+            </ul>
+	        </div>
+	        <div class="board_list_wrap">
+	            <div class="board_list">
+	                <div class="top">
+	                    <div class="num">번호</div>
+	                    <div class="title">제목</div>
+	                    <div class="writer">글쓴이</div>
+	                    <div class="date">작성일</div>
+	                    <div class="count">조회</div>
+	                </div>
+	                 <div th:each="board, stat : ${boardList}" class="board_item">
+	                    <div class="num" th:text="${stat.index + 1}"></div>
+	                    <div class="title"><a th:href="@{|/notice/${board.id}|(page=${boardList.number + 1})}" th:text="${board.boardTitle}"></a></div>
+	                    <div class="writer" th:text="${board.boardWriter}"></div>
+	                    <div class="date" th:text="${#temporals.format(board.boardCreatedTime, 'yyyy.MM.dd')}"></div>
+	                    <div class="count" th:text="${board.boardHits}"></div>
+	                </div>
+	                
+	            </div>
+	           <!--<div class="board_page">
+	    <a th:href="@{/notice/paging(page=1)}" class="bt first">처음</a>
+	    <a th:href="${boardList.first} ? '#' : @{/notice/paging(page=${boardList.number})}" class="bt prev">이전</a>
+	
+	   <span th:each="page: ${#numbers.sequence(startPage, endPage)}">
+	    <a th:if="${page == boardList.number + 1}" class="num on" th:text="${page}"></a>
+	    <a th:unless="${page == boardList.number + 1}" th:href="@{|/notice/list?page=${page}|}" class="num" th:text="${page}"></a>
+	</span>
+	
+	<a th:href="@{|/notice/list?page=${boardList.number + 2}|}" class="bt next">다음</a>
+	<a th:href="@{|/notice/list?page=${boardList.totalPages}|}" class="bt last">마지막</a>
+	</div>-->
+	
+ <!--<div class="board_page">
+	    <a th:href="@{/notice/paging(page=1)}" class="bt first">처음</a>
+	    <a th:href="${boardList.first} ? '#' : @{/notice/paging(page=${boardList.number})}" class="bt prev">이전</a>
+	
+	   <span th:each="page: ${#numbers.sequence(startPage, endPage)}">
+	    <a th:if="${page == boardList.number + 1}" class="num on" th:text="${page}"></a>
+	    <a th:unless="${page == boardList.number + 1}" th:href="@{|/notice/list?page=${page}|}" class="num" th:text="${page}"></a>
+	</span>
+	
+	<a th:href="@{|/notice/list?page=${boardList.number + 2}|}" class="bt next">다음</a>
+	<a th:href="@{|/notice/list?page=${boardList.totalPages}|}" class="bt last">마지막</a>
+	</div>-->
+	
+	<!-- 첫번째 페이지로 이동 -->
+<!-- /board/paging?page=1 -->
+<div class ="board_page">
+<a th:href="@{/notice/paging(page=1)}" class="bt first"><<</a>
+<!-- 이전 링크 활성화 비활성화 -->
+<!-- boardList.getNumber() 사용자:2페이지 getNumber()=1 -->
+<!-- 이전 페이지 링크 -->
+<a th:href="${boardList.first} ? '#' : @{/notice/paging(page=${boardList.number})}" class="bt prev"><</a>
+
+<!-- 페이지 번호 링크 -->
+<span th:each="page : ${#numbers.sequence(startPage, endPage)}">
+    <!-- 현재 페이지는 링크 없이 숫자만 표시 -->
+    <a th:if="${page == boardList.number + 1}" class="num on" th:text="${page}"></a>
+    <!-- 현재 페이지가 아닌 경우 링크를 표시 -->
+    <a th:unless="${page == boardList.number + 1}" th:href="@{/notice/list(page=${page})}" class="num" th:text="${page}"></a>
+</span>
+
+<!-- 다음 링크 활성화 비활성화
+    사용자: 2페이지, getNumber: 1, 3페이지-->
+<a th:href="${boardList.last} ? '#' : @{/notice/list(page=${boardList.number + 2})}" class="bt next">></a>
+<!-- 마지막 페이지로 이동 -->	
+<a th:href="@{/notice/list(page=${boardList.totalPages})}" class="bt last">>></a>
+</div>
+	    <div th:if="${role =='ROLE_ADMIN'}">
+	            <div class="bt_wrap">
+	        <!-- "Registration" 링크에 JavaScript 이벤트 추가 -->
+	        <a href="javascript:void(0);" class="on" onclick="saveReq()">등록</a>
+	    </div>
+	    </div>
+	        </div>
+	    </div>
+	</body>
+	<script>
+	
+		const saveReq = () => {
+			location.href= "/notice/write";
+			
+		}
+		
+		
+	</script>
+	</html> 

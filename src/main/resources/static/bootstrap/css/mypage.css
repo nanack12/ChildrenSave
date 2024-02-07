@@ -1,0 +1,159 @@
+@charset "UTF-8";
+
+
+
+/* 폰트 */
+@import url("http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css");
+
+@import url("http://fonts.googleapis.com/earlyaccess/notosanskr.css");
+
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+html {
+    font-size: 10px;
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.mypage_wrap {
+    width: 1000px;
+    margin: 100px auto;
+    padding: 0 30px;
+}
+
+.mypage_title {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.mypage_title strong {
+     font-weight: 700;
+    font-size: 4rem;
+}
+
+.mypage_title ul {
+    padding: 0;
+    text-align: center;
+}
+
+.mypage_title ul li {
+     font-family: 'Noto Sans KR', sans-serif;
+    display: inline-block;
+    color: #888;
+    margin-top: 20px;
+    margin-right: 8px;
+    margin-bottom: 40px;
+    font-size: 15px;
+}
+
+.mypage_title ul li img {
+    vertical-align: middle;
+    width: 19px;
+}
+
+.mypage_content_wrap {
+    width: 100%;
+    font-size: 1.3rem;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin: 0px 20px;
+    border-bottom: 1px solid #ddd;
+
+}
+
+#label {
+    flex-basis: 150px;
+    text-align: left;
+    margin-right: 10px;
+}
+
+#readOnlyID,
+#readOnlyPassword,
+#newPassword,
+#confirmPassword {
+    width: 300px;
+    height: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#error {
+    color: red;
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.bt_wrap {
+    margin-top: 30px;
+    text-align: center;
+
+    height: 36px;
+}
+
+#withdrawBt{
+    font-size: 1.2rem;
+    height: 100%;
+    min-width: 80px;
+    margin-left: 0px;
+    padding: 10px;
+}
+.modal{
+	z-index: 10001;
+}
+.modal-backdrop{
+	position:fixed;
+	top:0;
+	left:0;
+	height:100vh;
+	width:100vw;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 10000;
+}
+.btn:first-child:hover{
+    color: white;
+}
+.btn:first-child:active{
+    color: white;
+}
+#editBt {
+    font-size: 1.2rem;
+    height: 100%;
+    min-width: 80px;
+    margin-left: 10px;
+    padding: 10px;
+}
+#saveChange, #UDontGoBack{
+    background-color: gray;
+    font-size: 1.2rem;
+}
+#DontChange{
+    background-color:#fff;
+    font-size: 1.2rem;
+}
+.modal-title{
+    font-size: 1.5rem !important;
+}
+.modal-body > p{
+    font-size: 1.3rem !important;
+}

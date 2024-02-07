@@ -1,0 +1,94 @@
+@import url("http://fonts.googleapis.com/earlyaccess/notosanskr.css");
+@import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
+
+/*전반적인 스타일 지정.*/
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+html {
+    font-size: 10px;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+.teamInfo_wrap {
+    width: 1000px;
+    margin: 100px auto;
+    padding: 0 30px;
+}
+
+.teamInfo_title,
+.teamInfo_subtitle,
+.teamInfo_row
+ {
+    padding: 30px;
+    text-align: center;
+}
+/*=============사이트 이용 방법 < 타이틀 css===================================*/
+.teamInfo_title {
+    margin-bottom: 30px;
+    text-align: center;
+}
+.teamInfo_title strong{
+    font-weight: 700;
+	font-size: 4rem;
+}
+.teamInfo_title ul{
+    padding: 0;
+    text-align: center;
+}
+.teamInfo_title ul li{
+   font-family: 'Noto Sans KR', sans-serif;
+	display: inline-block;
+	color: #888;
+	margin-top: 20px;
+	margin-right: 8px;
+	margin-bottom: 30px;
+	font-size: 15px;
+}
+.teamInfo_title ul li img{ 
+    vertical-align: middle;
+    width:19px;
+}
+/*=============본문 css===================================================*/
+.teamInfo_row { 
+    display: flex; 
+    margin-bottom: 50px;
+    height: 300px;
+}
+.teamInfo_column{ 
+    padding: 5px;
+    flex: 1; 
+    margin: 5px;
+ 
+    text-align: left;
+    position: relative;
+}
+.Col1_Image { 
+    min-width: 280px;
+    min-height: 280px;
+}
+.teamInfo_column p{ 
+    font-size: 2.3rem; 
+    font-family:'Poor Story', system-ui;
+  
+    margin-left: 50px;
+    line-height: 45px;
+}
+hr{ 
+	margin-top:50px;
+    border-top: none; 
+    border-bottom: 3px dotted grey;
+    margin: 30px 0; 
+}
+.ws_machine{
+	max-width: 200px;
+	min-height: 400px;
+	
+	margin-right: 10px;
+  
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>웹사이트 레이아웃</title>
+         <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/bootstrap/css/header.css}" />
+    <link rel="stylesheet" href="/bootstrap/css/teamInfo.css">
+</head>
+
+<body>
+<!-- header -->
+	<div class="header">
+		<th:block th:replace="fragments/header :: header"></th:block>
+	</div>
+    <div class="teamInfo_wrap">
+        <div class="teamInfo_title">
+            <strong> 팀 소개 </strong>
+            <ul>
+                <li><img src="https://i.ibb.co/fqVWzWt/home.png" alt="home" border="0"></li>
+                <li> > 홈페이지 > 소개 > 팀 소개</li>
+            </ul>
+        </div>
+        <div class="teamInfo_row">
+            <div class="logo">
+                <img src="https://i.ibb.co/H7R9TQ1/logo.png" class="Col1_Image">
+            </div>
+            <div class="teamInfo_column">
+               <p>Framework를 한국어로 번역하면 ‘틀’이 된다는 점에서, </p>
+               <p>'틀딱코딩단'은 틀이 딱 정해진 똑 부러진 팀이라는 의미를 가집니다.</p>
+               <p>어느 상황일지라도 주어진 틀에 딱! 맞는 결과물을 도출함과 동시에 </p> 
+               <p> 창의성을 발휘해 고정관념이라는 틀을 딱! 깰 수 있는 사람들이라는 </p>
+               <p>의미를 내포하고 있답니다.</p>
+            </div>
+        </div>
+        <hr/>
+        <div class="teamInfo_row">
+            <div class="teamInfo_column">
+            <img src="/bootstrap/images/teamInfo/lmh.png" class="ws_machine">
+            <img src="/bootstrap/images/teamInfo/njs.png"class="ws_machine">
+            <img src="/bootstrap/images/teamInfo/lsh.png"class="ws_machine">
+            <img src="/bootstrap/images/teamInfo/lsh2.png"class="ws_machine">
+                </div>
+        </div>
+    </div>
+</body>

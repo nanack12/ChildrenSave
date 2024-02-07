@@ -1,0 +1,76 @@
+<!--마이페이지. 상세정보/탈퇴/정보수정 연결-->
+<!DOCTYPE html>
+<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지사항</title>
+
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/bootstrap/css/header.css}" />
+    
+    <link rel="stylesheet" href="/bootstrap/css/css.css">
+
+</head>
+<body>
+<!-- header -->
+	<div class="header">
+		<th:block th:replace="fragments/header :: header"></th:block>
+	</div>
+    <div class="board_wrap">
+        <div class="board_title">
+            <strong>질문 게시판 </strong><br>
+            <ul>
+                <li><img src="https://i.ibb.co/fqVWzWt/home.png" alt="home" border="0"></li>
+                <li> > 시민마당 > 질문 게시판 </li>
+            </ul>
+        </div>
+        <div class="board_list_wrap">
+            <div class="board_list">
+                <div class="top">
+                    <div class="num">번호</div>
+                    <div class="title">제목</div>
+                    <div class="writer">글쓴이</div>
+                    <div class="date">작성일</div>
+                    <div class="count">조회</div>
+                </div>
+                 <div th:each="board, stat : ${boardList}" class="board_item">
+                    <div class="num" th:text="${stat.index + 1}"></div>
+                    <div class="title"><a th:href="@{|/board/${board.id}|(page=${boardList.number + 1})}" th:text="${board.boardTitle}"></a></div>
+                    <div class="writer" th:text="${board.boardWriter}"></div>
+                    <div class="date" th:text="${#temporals.format(board.boardCreatedTime, 'yyyy.MM.dd')}"></div>
+                    <div class="count" th:text="${board.boardHits}"></div>
+                </div>
+                
+            </div>
+           <div class="board_page">
+    <a th:href="@{/board/paging(page=1)}" class="bt first"><<</a>
+    <a th:href="${boardList.first} ? '#' : @{/board/paging(page=${boardList.number})}" class="bt prev"><</a>
+
+    <span th:each="page: ${#numbers.sequence(startPage, endPage)}">
+        <a th:if="${page == boardList.number + 1}" class="num on" th:text="${page}"></a>
+        <a th:unless="${page == boardList.number + 1}" th:href="@{/board/paging(page=${page})}" class="num" th:text="${page}"></a>
+    </span>
+
+    <a th:href="${boardList.last} ? '#' : @{/board/paging(page=${boardList.number + 2})}" class="bt next">></a>
+    <a th:href="@{/board/paging(page=${boardList.totalPages})}" class="bt last">>></a>
+</div>
+            
+            <div class="bt_wrap">
+        <!-- "Registration" 링크에 JavaScript 이벤트 추가 -->
+        <a href="javascript:void(0);" class="on" onclick="saveReq()" id="writeBt">등록</a>
+    </div>
+        </div>
+    </div>
+</body>
+<script>
+
+	const saveReq = () => {
+		location.href= "/board/save";
+		
+	}
+	
+	
+</script>
+</html> 

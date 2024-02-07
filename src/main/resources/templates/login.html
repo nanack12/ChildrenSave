@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="UTF-8">
+	<!-- My css -->
+	<link rel="stylesheet" href="/bootstrap/css/login.css">
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+
+</head>
+<body>
+<br>
+<br>
+<div class="cont">
+	<div class="form sign-in">
+		<div class="logo">
+			<a href="/index"> <img src="https://i.ibb.co/NLfgzZw/2023-12-29-5-59-46.png">
+			</a>
+		</div>
+		<form action="/loginProc" method="post">
+		<label for="memberId">
+		</label>
+			
+			<input type="text" placeholder="ID" name="username"/>
+		<label for="memberPw">
+		</label>
+	
+			<input type="password" placeholder="비밀번호" name="password"/>
+		<button type="submit" class="submit" value="로그인">로그인</button>
+		</form>
+		<div class="socialLogin">
+			<button class='btn-social-login' style='background:#ebebeb'><img
+					src="https://i.ibb.co/DRqmJdr/googleicon.png"></button>
+			<button class='btn-social-login' style='background:#1FC700'><img
+					src="https://i.ibb.co/Pjk7hMs/btn-G.png"></button>
+			<button class='btn-social-login' style='background:#FFEB00'><img
+					src="https://i.ibb.co/TLz1WyW/free-icon-kakao-Fathema-Khanom-Flaticon.png"></button>
+		</div>
+
+
+	</div>
+	<div class="sub-cont">
+		<div class="img">
+			<div class="img__text m--up">
+				<h2> 강서구 <span> 어린이 </span> <span> 교통안전</span> <span> 플랫폼</span>
+					<h2>
+			</div>
+			<div class="img__text m--in">
+				<h2> 강서구 <span> 어린이 </span> <span> 교통안전</span> <span> 플랫폼</span>
+					<h2>
+			</div>
+			<div class="img__btn">
+				<span class="m--up">회원가입</span>
+				<span class="m--in">로그인</span>
+			</div>
+		</div>
+		<div class="form sign-up">
+			<h2>계정 생성하기</h2>
+			<form action="/saveProc" method="post">
+			<label>
+				<span>이메일</span>
+				<input type="email" name="memberEmail"/>
+			</label>
+			<label>
+				<span>번호</span>
+				<input type="tel" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" name="memberPhoneNo"
+				required />
+			</label>
+			<label>
+				<span>아이디</span>
+				<input type="text" name="memberId"/>
+			</label>
+			<label>
+				<span>비밀번호</span>
+				<input type="password" name="memberPw"/>
+			</label>
+			<button type="submit" class="submit" value="save">회원 가입</button>
+			</form>
+		</div>
+	</div>
+</div>
+</body>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+	document.querySelector('.img__btn').addEventListener('click', function () {
+		document.querySelector('.cont').classList.toggle('s--signup');
+	});
+</script>

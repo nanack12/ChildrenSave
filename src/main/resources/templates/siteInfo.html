@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>웹사이트 레이아웃</title>
+     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/bootstrap/css/header.css}" />
+   
+
+    <link rel="stylesheet" href="/bootstrap/css/siteInfo.css">
+    
+</head>
+
+<body>
+<!-- header -->
+	<div class="header">
+		<th:block th:replace="fragments/header :: header"></th:block>
+	</div>
+    <div class="siteInfo_wrap">
+        <div class="siteInfo_title">
+            <strong> 사이트 이용 방법 </strong>
+            <ul>
+                <li><img src="https://i.ibb.co/fqVWzWt/home.png" alt="home" border="0"></li>
+                <li> > 홈페이지 > 소개 > 사이트 이용 방법</li>
+            </ul>
+        </div>
+        <div class="siteInfo_subtitle">
+            <b> Safe Space, Happy Faces</b>
+            <img src="https://i.ibb.co/RvvSqZM/smile.png">
+            <hr />
+        </div>
+        <!--===========================================첫번째 열=================================================-->
+        <div class="siteInfo_row">
+            <div class="siteInfo_column">
+                <img src="https://i.ibb.co/dkyGzrQ/COL1.png" class="Col1_Image">
+            </div>
+            <div class="siteInfo_column">
+                <b><img src="https://i.ibb.co/1nRTGjG/check.png" class="checkmark"></span>안전 구역 확인하기</b>
+                <p>우리 생활 공간 속 안전한 곳을 한 눈에 확인해보세요.</p>
+                <p>집이나 학교 주변의 바닥신호등, 어린이보호구역을 한 번에 살펴볼 수 있어요. 보호자뿐만 아니라 아이들도 손쉽게 모바일 환경에서 살펴볼 수 있답니다.</p>
+                <div class="button_container1">
+                    <span class="link_text_right">페이지 바로가기</span>
+                    <button type="button" id="rightArrow"><a href="/index" target="_blank">
+                            <img src="https://i.ibb.co/QbBCncM/arrow.png" class="button"></a></button>
+                </div>
+            </div>
+        </div>
+        <!--===========================================두번째 열=================================================-->
+        <div class="siteInfo_row">
+            <div class="siteInfo_column">
+                <b><img src="https://i.ibb.co/1nRTGjG/check.png" class="checkmark"></span>필요한 정보만 살펴보기</b>
+                <p>나와 아이에게 필요한 정보를 확인해보세요.</p>
+                <p>클릭 한 번으로 알림이, 어린이보호구역, 학교 위치, 교통사고, 교통정체, 바닥 신호등의 데이터를 모두 보거나, 내게 필요한 정보만 따로 볼 수 있습니다.</p>
+                <div class="button_container2">
+                    <span class="link_text_left">페이지 바로가기</span>
+                    <button type="button" id="leftArrow"><a href="/test.do" target="_blank">
+                            <img src="https://i.ibb.co/qryy9Vc/leftarrow.png" class="button"></a></button>
+                </div>
+            </div>
+            
+            <div class="siteInfo_column">
+                <img src="https://i.ibb.co/JRn7Vpm/2024-01-07-12-00-20.png" alt="Col2 Image">
+            </div>
+        </div>
+        <!--===========================================세번째 열=================================================-->
+        <div class="siteInfo_row">
+            <div class="siteInfo_column">
+                <img src="https://i.ibb.co/PrTNm0w/2024-01-07-12-12-11.png" class="Col3_Image">
+            </div>
+            <div class="siteInfo_column">
+                <b><img src="https://i.ibb.co/1nRTGjG/check.png" class="checkmark"></span>과거의 데이터 찾아보기</b>
+                <p>지난 몇 년간 강서구의 교통, 안전 관련 데이터를 확인하고 싶다면 빅데이터 사이트를 참고해보세요.</p>
+                <p>어린이사고, 어린이보호구역, 학교위치뿐만 아니라 CCTV, 교통량에 대한 상세한 데이터를 확인할 수 있어요.</p>
+                <div class="button_container1">
+                    <span class="link_text_right">페이지 바로가기</span>
+                    <button type="button" id="rightArrow"><a href="https://csdata.streamlit.app/" target="_blank">
+                            <img src="https://i.ibb.co/QbBCncM/arrow.png" class="button"></a></button>
+                </div>
+            </div>
+        </div>
+        <!--===========================================네번째 열=================================================-->
+        <div class="siteInfo_row">
+            <div id="col4"class="siteInfo_column">
+                <img src="/bootstrap/images/siteinfo/col4Img3.svg" class="Col4_Image">
+                <b><img src="https://i.ibb.co/1nRTGjG/check.png" class="checkmark"></span>함께 만들어가기</b>
+                <p>아이들의 안전은 모두가 함께 노력해야 해요.</p>
+                <p>질문게시판에 글을 작성하시거나, 시민의 소리를 클릭해 강서구 민원창구 사이트에 의견을 보내주시면 우리의 아이들이 보다 안전하게 성장할 수 있을 겁니다!</p>
+                <div class="button_container1">
+                    <span id="link_text_col4" class="link_text_right">페이지 바로가기</span>
+                    <button type="button" id="rightArrow"><a href="/board/paging" target="_blank">
+                            <img src="https://i.ibb.co/QbBCncM/arrow.png" class="button"></a></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

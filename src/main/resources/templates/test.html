@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+</style>
+
+<title>강서구 어린이 교통 안전</title>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-migrate-3.3.2.min.js"></script>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- slick css -->
+<link rel="stylesheet"
+	href="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+
+<!-- My css -->
+<link rel="stylesheet" href="./bootstrap/css/style.css">
+
+
+<!-- slick js -->
+<script
+	src="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+</head>
+
+<body>
+		<!-- include polygon latlon data -->
+	<script src="/bootstrap/js/data.js"></script>
+	<script src="/bootstrap/js/schooldata.js"></script>
+
+	<div class="header">
+		<th:block th:replace="fragments/header :: header"></th:block>
+	</div>
+
+	<div class="mainContainer">
+		<div class="sidebarContainer">
+			<div id="sidebar">
+				<div
+					class="col-xs-12 col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
+					<div class="panel panel-default">
+						<div class="panel-heading">🚦 교통정보 데이터</div>
+						<ul class="list-group">
+							<li class="ol">알림이
+								<div class="material-switch pull-right-allime">
+									<input value="allime" id="someSwitchOptionDefault"
+										name="overlayData" type="checkbox"
+										class="label-default" /> <label for="someSwitchOptionDefault"></label>
+								</div>
+							</li>
+							<li class="safe">어린이 보호구역
+								<div class="material-switch pull-right-safe">
+									<input value="safezone" id="someSwitchOptionPrimary"
+										name="someSwitchOption001" type="checkbox"
+										class="label-primary" /> <label for="someSwitchOptionPrimary"></label>
+								</div>
+							</li>
+							<li class="scloc">학교 위치
+								<div class="material-switch pull-right-school">
+									<input value="school" id="someSwitchOptionSuccess"
+										name="schoolData" type="checkbox"
+										class="label-success" /> <label for="someSwitchOptionSuccess"></label>
+								</div>
+							</li>
+							<li class="cb">교통사고
+								<div class="material-switch pull-right-accident">
+									<input value="accident" id="someSwitchOptionInfo"
+										name="toggleData" type="checkbox" class="label-info" />
+									<label for="someSwitchOptionInfo"></label>
+								</div>
+							</li>
+							<li class="traffic">교통정체
+								<div class="material-switch pull-right5-traffic">
+									<input value="traffic" id="someSwitchOptionWarning"
+										name="trafficData" type="checkbox"
+										class="label-warning" /> <label for="someSwitchOptionWarning"></label>
+								</div>
+							</li>
+							<li class="cb">바닥신호등
+								<div class="material-switch pull-right-badack">
+									<input value="badack" id="someSwitchOptionDanger"
+										name="toggleData" type="checkbox"
+										class="label-danger" /> <label for="someSwitchOptionDanger"></label>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div id="sidebarImg"></div>
+		</div>
+
+		<div class="mapContainer">
+			<div id="map"></div>
+		</div>
+	</div>
+	<!-- end mainContainer -->
+	<!-- 지도 -->
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8b40564ca5feb95d3fb2ab2a184abdf6&libraries=clusterer"></script>
+	
+	<script>
+		var mapContainer = document.getElementById('map');
+
+		// 맵의 중심과 확대 레벨 표시
+		var mapOption = {
+			center: new kakao.maps.LatLng(37.5612346, 126.8228132),
+			level: 7
+		};
+
+
+		var map = new kakao.maps.Map(mapContainer, mapOption),
+			    	custompOverlay = new kakao.maps.CustomOverlay({});
+		
+
+		$(function () {
+			testCoordinate();
+		});
+
+		$(".cb input[type='checkbox']").click(function () {
+			var list = new Array();
+			$(".cb input[name='toggleData']:checked").each(function (index, value) {
+				list[index] = $(this).val();
+			});
+
+			toggleData(list);
+		});
+
+		$(".ol input[type='checkbox']").click(function () {
+			var list1 = new Array();
+			$(".ol input[name='overlayData']:checked").each(function (index, value) {
+				list1[index] = $(this).val();
+			});
+
+			overlayData(list1);
+		});
+
+		$(".traffic input[type='checkbox']").click(function () {
+			if (document.querySelector(".traffic input[name='trafficData']:checked")) {
+				map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
+			} else {
+				map.removeOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
+			}
+		});
+
+		$(".scloc input[type='checkbox']").click(function () {
+			if (document.querySelector(".scloc input[name='schoolData']:checked")) {	
+				schoolMarker(data2);
+			} else {
+				removeSchoolMarkers();
+			}
+		});
+		
+
+
+		var positions = []; 
+				
+		$(".safe input[type='checkbox']").click(function () {
+			if ($(this).is(":checked")) {
+				makingPolygon(Data);
+			} else {
+				removePolygons();
+			}
+		});
+
+		function removePolygons() {
+			for (var i = 0; i < polygons.length; i++) {
+				polygons[i].setMap(null);
+			}
+			polygons = []; // 배열 초기화
+		}
+
+		var polygons = [];
+		var polygongroup = {};
+		function closepOverlay(index) {
+			if(polygongroup[index]){
+				polygongroup[index].setMap(null);
+				delete polygongroup[index];
+			}
+		}
+		function makingPolygon(Data) {
+			for (var i = 0; i < Data.length; i++) {
+				var polygonPath = []; //카카오 객체담기로 담을 polygonPath 리스트 선언.
+				var polygonData = Data[i]; // 현재 데이터 저장
+				var coords = polygonData.polygon; //데이터에서 polygon 만 뽑아오기
+
+				for (var j = 0; j < coords.lat.length; j++) {
+					polygonPath.push(new kakao.maps.LatLng(coords.lat[j], coords.lon[j]));
+				}
+
+				//폴리건 만들기
+				var polygon = new kakao.maps.Polygon({
+					map: map,
+					path: polygonPath,
+					strokeColor: '#FFA000',
+					fillColor: '#E9BD15',
+					fillOpacity: 0.5
+				});
+				polygons.push(polygon);
+				
+				// (function()) : 즉시 실행 함수 표현식 (IIFE)
+				(function (polygon, data , index) {
+					kakao.maps.event.addListener(polygon, 'click', function (mouseEvent) {
+						var contentpoly =
+							'<div class="over-wrap">' +
+							'<div class="over-info">' +
+							'<div class="over-title">' +
+							data.school +
+							'<div class="over-close" onclick="closepOverlay(' + index + ')" title="닫기"></div>' +
+							'</div>' +
+							'<div class="over-body">' +
+							'<div class="over-desc">' +
+							'<div class="over-address-ch">' + data.address + '</div>' +
+							'<div class="meter">도로 폭 : ' + data.meter + ' m</div>' +
+							'<div class="cctv">CCTV 개수 : ' + data.cctv + ' 개</div>' +
+							'<div class="limit">제한 속도  : ' + data.limit + ' km</div>' +
+							'</div>' +
+							'</div>' +
+							'</div>' +
+							'</div>';
+
+
+						custompOverlay.setContent(contentpoly);
+						custompOverlay.setPosition(mouseEvent.latLng);
+						polygongroup[index] = custompOverlay;
+						custompOverlay.setMap(map);
+					});
+
+				})(polygon, polygonData, i);
+			}
+		
+	
+    
+		}//end function makingPolygon
+		var overlaygroup = {};
+		var currentOverlay;
+		var markers = [];
+
+			function closeOverlay(index) {
+				if (overlaygroup[index]) {
+					overlaygroup[index].setMap(null); // 현재 오버레이를 지도에서 제거
+					delete overlaygroup[index];
+				}
+			}
+		function toggleData(list) {
+			var overlaies = [];
+			
+			$.ajax({
+				type: 'POST',
+				url: '/togglelist.do',
+				data: {
+					dataType: list
+				},
+				success: function (result) {
+
+					positions = [];
+					for (var i = 0; i < result.length; i++) {
+
+						var obj = new Object;
+						obj = {
+							title: result[i].name,
+							latlng: new kakao.maps.LatLng(result[i].lat, result[i].lon),
+							type: result[i].type
+						}
+						var overlayInfo = {
+							type: result[i].type,
+							name: result[i].name,
+							acccase: result[i].acccase,
+							accdeath: result[i].accdeath,
+							accjs: result[i].accjs,
+							accgs: result[i].accgs,
+							accbs: result[i].accbs
+							}
+							
+						positions.push(obj);
+						overlaies.push(overlayInfo);
+						//console.log(obj);
+					}
+
+				}, complete: function () {			///ajax 완료 시점에 작동				
+					
+					for (var i = 0; i < markers.length; i++) {  // 마커를 지우는 for문 					
+						markers[i].setMap(null);
+					}
+					markers = []; // markers 배열 초기화
+					
+					
+
+					for (var i = 0; i < positions.length; i++) {
+							if (positions[i].type == "badack") {
+								var imageSrc = "https://i.ibb.co/qNJtH71/floor.png";
+								var imageSize = new kakao.maps.Size(35, 45);
+								var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+								// 마커를 생성합니다
+								marker = new kakao.maps.Marker({
+									map: map, // 마커를 표시할 지도
+									position: positions[i].latlng, // 마커를 표시할 위치
+									image: markerImage // 마커 이미지 
+								});
+								markers.push(marker); // markers 배열에 append
+								continue;
+							} else if (positions[i].type == "child") {
+								var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png";
+								var imageSize = new kakao.maps.Size(24, 35);
+							} else if (positions[i].type == "보행어린이" || positions[i].type == "스쿨존어린이") {
+								var imageSrc = "https://i.ibb.co/174T6Hn/21.png";
+								var imageSize = new kakao.maps.Size(35, 45);
+							} else if (positions[i].type == "보행노인" || positions[i].type == "무단횡단" || positions[i].type == "자전거") {
+								var imageSrc = "https://i.ibb.co/CbJpJ7y/accident.png"
+								var imageSize = new kakao.maps.Size(35, 45);
+							} else if (positions[i].type == "allime") {
+								var imageSrc = "https://i.ibb.co/k48TPQ9/bell.png";
+								var imageSize = new kakao.maps.Size(45, 45);
+								
+							}
+
+						
+						var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+						// 마커를 생성합니다
+						marker = new kakao.maps.Marker({
+							map: map, // 마커를 표시할 지도
+							position: positions[i].latlng, // 마커를 표시할 위치
+							image: markerImage // 마커 이미지 
+						});
+	
+						markers.push(marker); // markers 배열에 append
+							kakao.maps.event.addListener(marker, 'click', makeToggleOverlay(map, marker, overlaies[i] , i)); // 오버레이 추가 부  
+		
+		
+		function makeToggleOverlay(map, marker, overlay , index){
+
+			return function() {
+				var html = 
+                '<div class="over-wrap">' +
+                    '<div class="over-info">' +
+                        '<div class="over-title">' +
+                            overlay.type + 
+                            '사고 <div class="over-close" onclick="closeOverlay('+ index +')" title="닫기"></div>' + 
+                        '</div>' +
+                        '<div class=over-body">' +
+                            '<div class="over-desc">' +
+                                '<div class="over-address">'+overlay.name +'</div>' + 
+                                '<div class="over-total">총 사고 건수 : '+overlay.acccase +' 건 </div>' + 
+                                '<div class="over-acc"">사망:'+overlay.accdeath +'명/ ' + 
+                                '중상:'+ overlay.accjs +'명/ ' + 
+                                '경상:'+ overlay.accgs +'명/ ' +
+                                '부상:'+ overlay.accbs +'명</div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>';
+				
+				
+				var customOverlay = new kakao.maps.CustomOverlay({
+					position: marker.getPosition(),
+					xAnchor: 0.0,
+		            yAnchor: 0.5
+				});
+				customOverlay.setContent(html);
+				overlaygroup[index] = customOverlay;
+				customOverlay.setMap(map);
+			
+
+				
+			}
+		}
+		
+	
+					}// end i for 
+				}
+			})
+		}
+		
+					/* 
+					       알리미 오버레이
+					       							*/
+		var positions1 = [];
+		
+		var imageSrc1 = "https://i.ibb.co/bKMqXbB/allime.png";
+		var imageSize1 = new kakao.maps.Size(35, 45);
+		var imageOption1 = {offset: new kakao.maps.Point(27, 69)};
+		var markerImage1 = new kakao.maps.MarkerImage(imageSrc1, imageSize1, imageOption1);    
+		var overlays1 = [];							
+		var markers1 = [];
+		function displayOverlay(marker1, title, content) {
+			
+			var overlay1 = new kakao.maps.CustomOverlay({
+				
+			content: '<div class="over-wrap">'
+	                    + '<div class="over-info">' +
+	                    '<div class="over-title">' + title +
+	                    '</div>' + '<div class="over-body">' + '<div class="over-desc">' + '<div class="over-address">'
+	                    + content + '</div>' + '</div>' + '</div>' + '</div>' + '</div>',
+	                position: marker1.getPosition(),
+	                yAnchor: 0.5,  
+	                xAnchor: 0.5 
+	            });
+	
+	            overlays1.push(overlay1);
+	
+	            kakao.maps.event.addListener(marker1, 'mouseover', function () {
+	                overlay1.setMap(map);
+	            });
+	            kakao.maps.event.addListener(marker1, 'mouseout', function () {
+	                overlay1.setMap(null);
+	            });
+	        }
+		function overlayData(list1) {
+			
+			
+			$.ajax({
+				type: 'POST',
+				url: '/toggleoverlay.do',
+				data: {
+					dataType: list1
+				},
+				success: function (result1) {
+
+					positions1 = [];
+					for (var i = 0; i < result1.length; i++) {
+
+						var obj1 = new Object;
+						obj1 = {
+							title: result1[i].school,
+							latlng: new kakao.maps.LatLng(result1[i].lat, result1[i].lon),
+							content: result1[i].address
+						}
+						positions1.push(obj1);
+						
+
+					}
+
+				}, complete: function () {			///ajax 완료 시점에 작동				
+				
+					for (var i = 0; i < markers1.length; i++) {  // 마커를 지우는 for문 					
+						markers1[i].setMap(null);
+					}
+					markers1 = []; // markers 배열 초기화
+
+					for (var i = 0; i < positions1.length; i++) {
+						// 마커를 생성합니다
+
+						marker1 = new kakao.maps.Marker({
+							map: map, // 마커를 표시할 지도
+							position: positions1[i].latlng, // 마커를 표시할 위치
+							image: markerImage1 // 마커 이미지
+
+						});
+						markers1.push(marker1); // markers 배열에 append
+						displayOverlay(marker1, positions1[i].title, positions1[i].content);
+
+						
+					}
+				}
+			})
+		}
+		
+		/*  학교  */
+					//마커 이미지 
+			var imgLink2 = "https://i.ibb.co/f0HhPbg/mortarboard-123402.png",
+				imgSize2 = new kakao.maps.Size(25, 25);
+			var markerImg2 = new kakao.maps.MarkerImage(imgLink2, imgSize2);
+			var clusterer = new kakao.maps.MarkerClusterer({
+					map: map, // 지도 객체
+					averageCenter: true,
+					gridSize: 80,
+					minLevel: 1
+				});
+			// 마커 배열 
+			var markers2 = [];
+			var overlays2 = [];
+
+			function schoolMarker(data2) {
+				
+				// 기존 마커 및 오버레이를 모두 제거합니다.
+				removeSchoolMarkers();
+
+				for (var i = 0; i < data2.length; i++) {
+					var coor2 = data2[i];
+					var lat2 = coor2.lat;
+					var lon2 = coor2.lon;
+					var markerPosition2 = new kakao.maps.LatLng(lat2, lon2);
+
+					var marker2 = new kakao.maps.Marker({
+						position: markerPosition2,
+						image: markerImg2
+					});
+					
+					marker2.setMap(map);
+
+					var content2 =
+            '<div class="over-wrap">' +
+            '<div class="over-info">' +
+            '<div class="over-title">' +
+            coor2.school +
+            '<div class="over-close" onclick="closeOverlay2('+ i +')" title="닫기"></div>' +
+            '</div>' +
+            '<div class="over-body">' +
+            '<div class="over-desc">' +
+            '<div class="over-address">' + coor2.address + '</div>' +
+            '<div class="kind-school">학교 구분 : ' + coor2.kind + '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>';
+            var overlay2 = new kakao.maps.CustomOverlay({
+                content: content2,
+                map: null,
+                position: marker2.getPosition()
+            });
+
+        // 생성된 마커를 배열에 추가합니다.
+        markers2.push(marker2);
+        overlays2.push(overlay2);
+        kakao.maps.event.addListener(marker2, 'click', openOverlays2(i));
+    }
+  		clusterer.addMarkers(markers2);
+  		console.log(clusterer);
+}
+
+			function openOverlays2(index) {
+				return function () {
+					overlays2[index].setMap(map);
+				};
+			}
+
+			function closeOverlay2(index) {
+				overlays2[index].setMap(null);
+			}
+			
+			function removeSchoolMarkers() {
+				for (var i = 0; i < markers2.length; i++) {
+					markers2[i].setMap(null);
+				}
+				markers2 = []; // markers 배열 초기화
+
+				// 생성된 오버레이도 제거합니다.
+				for (var i = 0; i < overlays2.length; i++) {
+					overlays2[i].setMap(null);
+				}
+				overlays2 = []; // overlays 배열 초기화
+				clusterer.clear();
+			}
+		
+		function testCoordinate() {
+
+			var path = [];
+
+			$.ajax({
+				type: 'get',
+				dataType: 'JSON',
+				url: '/testdb.do',
+				success: function (result) {
+					for (var i = 0; i < result.length; i++) {
+						path.push(new kakao.maps.LatLng(result[i].lat, result[i].lon));
+					}
+
+				},
+				complete: function () {
+
+					for (var i = 0; i < path.length; i++) {
+						var polygon = new kakao.maps.Polygon({
+							map: map,
+							path: path,
+							strokeWeight: 2,
+							strokeColor: '#75B8FA',
+							strokeOpacity: 0.5,
+							fillColor: '#CFE7FF',
+							fillOpacity: 0.02
+						});
+					}
+				}
+			});
+		}
+		
+		// polygon 데이터 변환 함수
+		function transformPolygon(polygon) {
+			var coords = polygon.slice(1, -1).split(',');
+			var lats = [], lons = [];
+			coords.forEach(function (coord) {
+				var parts = coord.trim().split(' ');
+				lons.push(parseFloat(parts[0]));
+				lats.push(parseFloat(parts[1]));
+			});
+			return {lat: lats, lon: lons};
+
+		}
+		 // 바꾼 폴리건과 원본 데이터 합쳐서 정제? 한 데이터 만들기
+		var Data = data.map(function (item) {
+			var prettyPolygon = transformPolygon(item.polygon);
+			return {...item, polygon: prettyPolygon};
+		});  
+
+
+	</script>
+	
+	<div class="footer">
+		<th:block th:replace="fragments/footer :: footer"></th:block>
+	</div>
+
+</body>
+
+</html>
